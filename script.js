@@ -5,14 +5,13 @@ const newQuoteBtn = document.querySelector('#newQuote');
 const twitterBtn = document.querySelector('#twitter');
 const loader = document.querySelector('#loader');
 
-// show loading 
-function loading() {
+
+function showLoadingSpinner() {
     loader.hidden = false;
     quoteContainer.hidden = true;
 }
 
-// hide loading
-function complete() {
+function removeLoadingSpinner() {
     if(!loader.hidden)
     quoteContainer.hidden = false;
   loader.hidden = true;
@@ -21,7 +20,7 @@ function complete() {
 // get quote api
 
 async function getQuote() {
-    loading();
+    showLoadingSpinner();
     const proxyUrl = "https://jacinto-cors-proxy.herokuapp.com/";
     const apiUrl =
       "https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json";
@@ -41,8 +40,8 @@ async function getQuote() {
             quoteText.classList.remove('longQuote');
         }
         quoteText.innerText = data.quoteText;
-        // stop loader
-        complete();
+
+        removeLoadingSpinner();
     } catch (error) {
         getQuote;
         
